@@ -1,11 +1,6 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp-firstpass.csproj" />
-  <Project Path="GDS.Examples.csproj" />
-  <Project Path="GDS.Core.Editor.csproj" />
-  <Project Path="GDS.Demos.Basic.csproj" />
-  <Project Path="GDS.Core.csproj" />
-  <Project Path="GDS.Common.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
 </Solution>
