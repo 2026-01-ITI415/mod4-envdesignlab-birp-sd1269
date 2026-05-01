@@ -3851,7 +3851,8 @@ MonoBehaviour:
   treeDetectRadius: 2
   woodPerTree: 3
   gatherKey: 101
-  stumpPrefab: {fileID: 0}
+  stumpPrefab: {fileID: 919132149155446097, guid: b57de7db9f3e2f14f8b5bbf4542c4c62, type: 3}
+  stumpScale: 3
 --- !u!1001 &669206216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4959,7 +4960,7 @@ GameObject:
   - component: {fileID: 1264186550}
   - component: {fileID: 1264186549}
   - component: {fileID: 1264186548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
