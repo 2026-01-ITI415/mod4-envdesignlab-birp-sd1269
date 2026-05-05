@@ -15,6 +15,15 @@ public class BuildingManager : MonoBehaviour
     public LayerMask snapMask;
     public float snapSearchRadius = 1.0f;
 
+    [Header("Removal Settings")]
+    public KeyCode removeModeKey = KeyCode.X;
+    public LayerMask removeMask;
+    public float removeDistance = 8f;
+    public bool refundResourcesOnRemove = true;
+
+    [Range(0f, 1f)]
+    public float refundPercent = 1f;
+
     [Header("Rotation Settings")]
     public float scrollRotationStep = 15f;
     public float quickRotationStep = 90f;
@@ -41,8 +50,22 @@ public class BuildingManager : MonoBehaviour
     private Transform currentTargetSnap;
     private int selectedPreviewSnapIndex = 0;
 
+    private bool isRemoveMode = false;
+
+    private BuildingPiece currentRemoveTarget;
+    private Renderer[] currentRemoveRenderers;
+    private Material[][] originalRemoveMaterials;
+
     private void Update()
     {
+        HandleRemoveModeToggle();
+
+        if (isRemoveMode)
+        {
+            HandleRemoveMode();
+            return;
+        }
+
         if (selectedPiece == null)
             return;
 
@@ -62,6 +85,169 @@ public class BuildingManager : MonoBehaviour
             PlaceSelectedPiece();
         }
     }
+
+    // ------------------------------------------------------------------------
+    // REMOVAL
+    // ------------------------------------------------------------------------
+
+    private void HandleRemoveModeToggle()
+    {
+        if (!Input.GetKeyDown(removeModeKey))
+            return;
+
+        isRemoveMode = !isRemoveMode;
+
+        if (isRemoveMode)
+        {
+            CancelBuild();
+            Debug.Log("Remove mode enabled.");
+        }
+        else
+        {
+            ClearRemoveHighlight();
+            Debug.Log("Remove mode disabled.");
+        }
+    }
+
+    private void HandleRemoveMode()
+    {
+        UpdateRemoveHighlight();
+
+        if (Input.GetKeyDown(cancelKey) || Input.GetMouseButtonDown(1))
+        {
+            ClearRemoveHighlight();
+            isRemoveMode = false;
+            Debug.Log("Remove mode disabled.");
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            TryRemoveStructure();
+        }
+    }
+
+    private void UpdateRemoveHighlight()
+    {
+        BuildingPiece target = GetRemovablePieceInView();
+
+        if (target == currentRemoveTarget)
+            return;
+
+        ClearRemoveHighlight();
+
+        if (target == null)
+            return;
+
+        currentRemoveTarget = target;
+        currentRemoveRenderers = currentRemoveTarget.GetComponentsInChildren<Renderer>();
+
+        originalRemoveMaterials = new Material[currentRemoveRenderers.Length][];
+
+        for (int i = 0; i < currentRemoveRenderers.Length; i++)
+        {
+            originalRemoveMaterials[i] = currentRemoveRenderers[i].materials;
+        }
+
+        ApplyRemoveHighlight();
+    }
+
+    private void ApplyRemoveHighlight()
+    {
+        if (currentRemoveRenderers == null || invalidPreviewMaterial == null)
+            return;
+
+        foreach (Renderer renderer in currentRemoveRenderers)
+        {
+            Material[] highlightedMaterials = renderer.materials;
+
+            for (int i = 0; i < highlightedMaterials.Length; i++)
+            {
+                highlightedMaterials[i] = invalidPreviewMaterial;
+            }
+
+            renderer.materials = highlightedMaterials;
+        }
+    }
+
+    private void ClearRemoveHighlight()
+    {
+        if (currentRemoveTarget == null || currentRemoveRenderers == null || originalRemoveMaterials == null)
+        {
+            currentRemoveTarget = null;
+            currentRemoveRenderers = null;
+            originalRemoveMaterials = null;
+            return;
+        }
+
+        for (int i = 0; i < currentRemoveRenderers.Length; i++)
+        {
+            if (currentRemoveRenderers[i] != null && i < originalRemoveMaterials.Length)
+            {
+                currentRemoveRenderers[i].materials = originalRemoveMaterials[i];
+            }
+        }
+
+        currentRemoveTarget = null;
+        currentRemoveRenderers = null;
+        originalRemoveMaterials = null;
+    }
+
+    private BuildingPiece GetRemovablePieceInView()
+    {
+        if (playerCamera == null)
+            return null;
+
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+
+        if (!Physics.Raycast(ray, out RaycastHit hit, removeDistance, removeMask))
+            return null;
+
+        return hit.collider.GetComponentInParent<BuildingPiece>();
+    }
+
+    private void TryRemoveStructure()
+    {
+        BuildingPiece pieceToRemove = GetRemovablePieceInView();
+
+        if (pieceToRemove == null)
+        {
+            Debug.Log("No removable structure found.");
+            return;
+        }
+
+        RefundRemovedPiece(pieceToRemove);
+
+        if (pieceToRemove == currentRemoveTarget)
+        {
+            currentRemoveTarget = null;
+            currentRemoveRenderers = null;
+            originalRemoveMaterials = null;
+        }
+
+        Destroy(pieceToRemove.gameObject);
+
+        Debug.Log("Removed structure: " + pieceToRemove.displayName);
+    }
+
+    private void RefundRemovedPiece(BuildingPiece removedPiece)
+    {
+        if (!refundResourcesOnRemove)
+            return;
+
+        if (playerResources == null || removedPiece == null)
+            return;
+
+        int woodRefund = Mathf.RoundToInt(removedPiece.woodCost * refundPercent);
+        int stoneRefund = Mathf.RoundToInt(removedPiece.stoneCost * refundPercent);
+
+        playerResources.wood += woodRefund;
+        playerResources.stone += stoneRefund;
+    }
+
+    // ------------------------------------------------------------------------
+    // ROTATION / SNAP CYCLING
+    // ------------------------------------------------------------------------
 
     private void HandleRotationInput()
     {
@@ -114,6 +300,10 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    // ------------------------------------------------------------------------
+    // BUILD SELECTION
+    // ------------------------------------------------------------------------
+
     public void SelectBuildable(int index)
     {
         if (index < 0 || index >= buildPieces.Length)
@@ -126,6 +316,9 @@ public class BuildingManager : MonoBehaviour
     {
         if (piece == null)
             return;
+
+        ClearRemoveHighlight();
+        isRemoveMode = false;
 
         selectedPiece = piece;
         currentYRotation = 0f;
@@ -156,6 +349,10 @@ public class BuildingManager : MonoBehaviour
         DisablePreviewCollisions(previewObject);
         SetPreviewMaterial(invalidPreviewMaterial);
     }
+
+    // ------------------------------------------------------------------------
+    // PREVIEW / SNAPPING
+    // ------------------------------------------------------------------------
 
     private void UpdatePreview()
     {
@@ -241,6 +438,10 @@ public class BuildingManager : MonoBehaviour
         return previewPiece.snapPoints[selectedPreviewSnapIndex];
     }
 
+    // ------------------------------------------------------------------------
+    // PLACING
+    // ------------------------------------------------------------------------
+
     private bool CheckCanPlace()
     {
         if (selectedPiece == null)
@@ -290,12 +491,20 @@ public class BuildingManager : MonoBehaviour
     {
         selectedPiece = null;
         currentTargetSnap = null;
+        canPlace = false;
 
         if (previewObject != null)
         {
             Destroy(previewObject);
         }
+
+        previewObject = null;
+        previewPiece = null;
     }
+
+    // ------------------------------------------------------------------------
+    // HELPERS
+    // ------------------------------------------------------------------------
 
     private void DisablePreviewCollisions(GameObject obj)
     {

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7776384665373345024}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SnapPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2354180876203424930}
   - component: {fileID: 6403038220397856591}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7443568187784710190}
   - component: {fileID: 8513758342165632101}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wooden_Pointed_Doorway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 86b6f206e09dae647a8c28fccb4ecd37, type: 3}
       propertyPath: m_Name
       value: Wall_Narrow_01_a
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 86b6f206e09dae647a8c28fccb4ecd37, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 86b6f206e09dae647a8c28fccb4ecd37, type: 3}
       propertyPath: m_LocalPosition.x

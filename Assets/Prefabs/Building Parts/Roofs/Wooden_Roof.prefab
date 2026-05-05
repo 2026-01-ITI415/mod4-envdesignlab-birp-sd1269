@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4854674776299289097}
   - component: {fileID: 171960011777997980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wooden_Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7913741384782129520}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SnapPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357867725239139894}
   - component: {fileID: 3981163631513702656}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 75b366605bacf2a47aa1101444c0b33c, type: 3}
       propertyPath: m_Name
       value: Roof_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 75b366605bacf2a47aa1101444c0b33c, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 75b366605bacf2a47aa1101444c0b33c, type: 3}
       propertyPath: m_LocalPosition.x

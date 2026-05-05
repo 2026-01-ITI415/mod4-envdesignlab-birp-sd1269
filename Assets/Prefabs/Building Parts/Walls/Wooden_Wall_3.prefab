@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8293071841553861745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SnapPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2525748416236356557}
   - component: {fileID: 1172390573541964515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wooden_Wall_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1609697289946386057}
   - component: {fileID: 4503896922802485804}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 6c386fd12b31c874b82508becbbb9279, type: 3}
       propertyPath: m_Name
       value: Wall_Narrow_02_a
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6c386fd12b31c874b82508becbbb9279, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6c386fd12b31c874b82508becbbb9279, type: 3}
       propertyPath: m_LocalPosition.x
