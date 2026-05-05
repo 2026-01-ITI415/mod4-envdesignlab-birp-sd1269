@@ -43,15 +43,13 @@ public class BuildingManager : MonoBehaviour
 
     private void Update()
     {
-        HandleNumberSelection();
-
         if (selectedPiece == null)
             return;
 
         HandleRotationInput();
         HandleSnapPointCycling();
 
-        if (Input.GetKeyDown(cancelKey))
+        if (Input.GetKeyDown(cancelKey) || Input.GetMouseButtonDown(1))
         {
             CancelBuild();
             return;
@@ -62,17 +60,6 @@ public class BuildingManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canPlace)
         {
             PlaceSelectedPiece();
-        }
-    }
-
-    private void HandleNumberSelection()
-    {
-        for (int i = 0; i < buildPieces.Length; i++)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
-            {
-                SelectBuildable(i);
-            }
         }
     }
 
@@ -187,14 +174,11 @@ public class BuildingManager : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(0f, currentYRotation, 0f);
 
-        // First place the preview where the player is aiming.
         previewObject.transform.position = hit.point;
         previewObject.transform.rotation = targetRotation;
 
-        // Find a placed-world snap point near where the player is aiming.
         currentTargetSnap = FindBestWorldSnap(hit.point);
 
-        // If one exists, use the currently selected preview snap point to attach to it.
         if (currentTargetSnap != null)
         {
             SnapPreviewToPoint(currentTargetSnap, targetRotation);
