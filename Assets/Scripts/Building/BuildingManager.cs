@@ -14,7 +14,17 @@ public class BuildingManager : MonoBehaviour
     public LayerMask placementMask;
     public LayerMask snapMask;
     public float snapSearchRadius = 1.0f;
-    public KeyCode rotateKey = KeyCode.R;
+
+    [Header("Rotation Settings")]
+    public float scrollRotationStep = 15f;
+    public float quickRotationStep = 90f;
+    public KeyCode quickRotateKey = KeyCode.R;
+
+    [Header("Snap Point Cycling")]
+    public KeyCode previousSnapPointKey = KeyCode.Q;
+    public KeyCode nextSnapPointKey = KeyCode.E;
+
+    [Header("Controls")]
     public KeyCode cancelKey = KeyCode.Escape;
 
     [Header("Preview Materials")]
@@ -29,6 +39,7 @@ public class BuildingManager : MonoBehaviour
     private float currentYRotation;
 
     private Transform currentTargetSnap;
+    private int selectedPreviewSnapIndex = 0;
 
     private void Update()
     {
@@ -37,10 +48,8 @@ public class BuildingManager : MonoBehaviour
         if (selectedPiece == null)
             return;
 
-        if (Input.GetKeyDown(rotateKey))
-        {
-            currentYRotation += 90f;
-        }
+        HandleRotationInput();
+        HandleSnapPointCycling();
 
         if (Input.GetKeyDown(cancelKey))
         {
@@ -67,6 +76,57 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    private void HandleRotationInput()
+    {
+        float scroll = Input.mouseScrollDelta.y;
+
+        if (scroll > 0f)
+        {
+            currentYRotation += scrollRotationStep;
+        }
+        else if (scroll < 0f)
+        {
+            currentYRotation -= scrollRotationStep;
+        }
+
+        if (Input.GetKeyDown(quickRotateKey))
+        {
+            currentYRotation += quickRotationStep;
+        }
+
+        currentYRotation = NormalizeAngle(currentYRotation);
+    }
+
+    private void HandleSnapPointCycling()
+    {
+        if (previewPiece == null || previewPiece.snapPoints == null || previewPiece.snapPoints.Length == 0)
+            return;
+
+        if (Input.GetKeyDown(nextSnapPointKey))
+        {
+            selectedPreviewSnapIndex++;
+
+            if (selectedPreviewSnapIndex >= previewPiece.snapPoints.Length)
+            {
+                selectedPreviewSnapIndex = 0;
+            }
+
+            Debug.Log("Selected preview snap point: " + previewPiece.snapPoints[selectedPreviewSnapIndex].name);
+        }
+
+        if (Input.GetKeyDown(previousSnapPointKey))
+        {
+            selectedPreviewSnapIndex--;
+
+            if (selectedPreviewSnapIndex < 0)
+            {
+                selectedPreviewSnapIndex = previewPiece.snapPoints.Length - 1;
+            }
+
+            Debug.Log("Selected preview snap point: " + previewPiece.snapPoints[selectedPreviewSnapIndex].name);
+        }
+    }
+
     public void SelectBuildable(int index)
     {
         if (index < 0 || index >= buildPieces.Length)
@@ -82,6 +142,8 @@ public class BuildingManager : MonoBehaviour
 
         selectedPiece = piece;
         currentYRotation = 0f;
+        selectedPreviewSnapIndex = 0;
+
         CreatePreview();
     }
 
@@ -101,6 +163,8 @@ public class BuildingManager : MonoBehaviour
         {
             previewPiece.RefreshSnapPoints();
         }
+
+        selectedPreviewSnapIndex = 0;
 
         DisablePreviewCollisions(previewObject);
         SetPreviewMaterial(invalidPreviewMaterial);
@@ -123,16 +187,17 @@ public class BuildingManager : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(0f, currentYRotation, 0f);
 
+        // First place the preview where the player is aiming.
+        previewObject.transform.position = hit.point;
+        previewObject.transform.rotation = targetRotation;
+
+        // Find a placed-world snap point near where the player is aiming.
         currentTargetSnap = FindBestWorldSnap(hit.point);
 
+        // If one exists, use the currently selected preview snap point to attach to it.
         if (currentTargetSnap != null)
         {
             SnapPreviewToPoint(currentTargetSnap, targetRotation);
-        }
-        else
-        {
-            previewObject.transform.position = hit.point;
-            previewObject.transform.rotation = targetRotation;
         }
 
         canPlace = CheckCanPlace();
@@ -166,7 +231,7 @@ public class BuildingManager : MonoBehaviour
     {
         previewObject.transform.rotation = desiredRotation;
 
-        Transform previewSnap = FindClosestPreviewSnapToTarget(targetSnap.position);
+        Transform previewSnap = GetSelectedPreviewSnap();
 
         if (previewSnap == null)
         {
@@ -178,29 +243,18 @@ public class BuildingManager : MonoBehaviour
         previewObject.transform.position = targetSnap.position - offset;
     }
 
-    private Transform FindClosestPreviewSnapToTarget(Vector3 targetPosition)
+    private Transform GetSelectedPreviewSnap()
     {
         if (previewPiece == null || previewPiece.snapPoints == null || previewPiece.snapPoints.Length == 0)
             return null;
 
-        Transform bestSnap = null;
-        float bestDistance = Mathf.Infinity;
+        if (selectedPreviewSnapIndex < 0)
+            selectedPreviewSnapIndex = 0;
 
-        foreach (Transform snap in previewPiece.snapPoints)
-        {
-            if (snap == null)
-                continue;
+        if (selectedPreviewSnapIndex >= previewPiece.snapPoints.Length)
+            selectedPreviewSnapIndex = previewPiece.snapPoints.Length - 1;
 
-            float distance = Vector3.Distance(snap.position, targetPosition);
-
-            if (distance < bestDistance)
-            {
-                bestDistance = distance;
-                bestSnap = snap;
-            }
-        }
-
-        return bestSnap;
+        return previewPiece.snapPoints[selectedPreviewSnapIndex];
     }
 
     private bool CheckCanPlace()
@@ -279,6 +333,41 @@ public class BuildingManager : MonoBehaviour
         foreach (Renderer renderer in renderers)
         {
             renderer.material = material;
+        }
+    }
+
+    private float NormalizeAngle(float angle)
+    {
+        angle %= 360f;
+
+        if (angle < 0f)
+        {
+            angle += 360f;
+        }
+
+        return angle;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (previewObject == null)
+            return;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(previewObject.transform.position, snapSearchRadius);
+
+        Transform selectedSnap = GetSelectedPreviewSnap();
+
+        if (selectedSnap != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(selectedSnap.position, 0.15f);
+        }
+
+        if (currentTargetSnap != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(currentTargetSnap.position, 0.2f);
         }
     }
 }

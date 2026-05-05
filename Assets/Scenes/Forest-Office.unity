@@ -3830,7 +3830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24cb6df9dba2174aa12ff3bd986d9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerResources
-  wood: 0
+  wood: 100
   stone: 0
 --- !u!114 &657634387
 MonoBehaviour:
@@ -4320,8 +4320,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   snapSearchRadius: 1
-  rotateKey: 114
-  cancelKey: 27
+  scrollRotationStep: 15
+  quickRotationStep: 90
+  quickRotateKey: 114
+  previousSnapPointKey: 113
+  nextSnapPointKey: 101
+  cancelKey: 8
   validPreviewMaterial: {fileID: 2100000, guid: 04076a8ba5c805c409251912da22b641, type: 2}
   invalidPreviewMaterial: {fileID: 2100000, guid: a490127cee2d3f24b8ed528f74316101, type: 2}
 --- !u!4 &1029974100
