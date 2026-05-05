@@ -51,7 +51,11 @@ MonoBehaviour:
   pieceType: 2
   woodCost: 2
   stoneCost: 0
-  snapPoints: []
+  snapPoints:
+  - {fileID: 5143713774280009193}
+  - {fileID: 4311768538417180679}
+  - {fileID: 2397789769588640503}
+  - {fileID: 3932137529938075224}
 --- !u!1 &2462416794088929895
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +65,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3932137529938075224}
-  m_Layer: 0
+  - component: {fileID: 7801185393537730182}
+  m_Layer: 7
   m_Name: Snap_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +88,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7913741384782129520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7801185393537730182
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2462416794088929895}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2820714376764208344
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +153,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2397789769588640503}
-  m_Layer: 0
+  - component: {fileID: 5032995653121032953}
+  m_Layer: 7
   m_Name: Snap_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,6 +176,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7913741384782129520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5032995653121032953
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3080816043282404586}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6490399790524538710
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +206,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4311768538417180679}
-  m_Layer: 0
+  - component: {fileID: 4317299799470348818}
+  m_Layer: 7
   m_Name: Snap_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,6 +229,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7913741384782129520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4317299799470348818
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490399790524538710}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7866080971989611086
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +312,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5143713774280009193}
-  m_Layer: 0
+  - component: {fileID: 1919887688697397718}
+  m_Layer: 7
   m_Name: Snap_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,6 +335,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7913741384782129520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1919887688697397718
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809740169698482443}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1449867525265714650
 PrefabInstance:
   m_ObjectHideFlags: 0

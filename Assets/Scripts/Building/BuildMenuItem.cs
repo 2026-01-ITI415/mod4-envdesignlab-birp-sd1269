@@ -4,37 +4,101 @@ using TMPro;
 
 public class BuildMenuItem : MonoBehaviour
 {
-    public GameObject buildPrefab;
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI costText;
+    [Header("References")]
+    public BuildingManager buildingManager;
     public Button button;
 
-    private BuildingManager buildingManager;
+    [Header("Build Piece")]
+    public BuildingPiece buildPiece;
 
-    public void Setup(GameObject prefab, BuildingManager manager)
+    [Header("Optional UI")]
+    public TMP_Text nameText;
+    public TMP_Text costText;
+    public Image iconImage;
+    public Sprite icon;
+
+    private void Awake()
     {
-        buildPrefab = prefab;
-        buildingManager = manager;
-
-        BuildableObject buildable = prefab.GetComponent<BuildableObject>();
-
-        if (buildable != null)
+        if (button == null)
         {
-            nameText.text = buildable.displayName;
-            costText.text = "Wood: " + buildable.woodCost + " Stone: " + buildable.stoneCost;
-        }
-        else
-        {
-            nameText.text = prefab.name;
-            costText.text = "";
+            button = GetComponent<Button>();
         }
 
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(SelectItem);
+        if (button != null)
+        {
+            button.onClick.RemoveListener(SelectThisBuildPiece);
+            button.onClick.AddListener(SelectThisBuildPiece);
+        }
+
+        RefreshUI();
     }
 
-    void SelectItem()
+    private void OnValidate()
     {
-        buildingManager.SelectBuildable(buildPrefab);
+        RefreshUI();
+    }
+
+    public void Setup(BuildingManager manager, BuildingPiece piece)
+    {
+        buildingManager = manager;
+        buildPiece = piece;
+
+        if (button == null)
+        {
+            button = GetComponent<Button>();
+        }
+
+        if (button != null)
+        {
+            button.onClick.RemoveListener(SelectThisBuildPiece);
+            button.onClick.AddListener(SelectThisBuildPiece);
+        }
+
+        RefreshUI();
+    }
+
+    public void SelectThisBuildPiece()
+    {
+        if (buildingManager == null)
+        {
+            Debug.LogWarning("BuildMenuItem is missing a BuildingManager reference.");
+            return;
+        }
+
+        if (buildPiece == null)
+        {
+            Debug.LogWarning("BuildMenuItem is missing a BuildingPiece reference.");
+            return;
+        }
+
+        buildingManager.SelectBuildable(buildPiece);
+    }
+
+    private void RefreshUI()
+    {
+        if (buildPiece != null)
+        {
+            if (nameText != null)
+            {
+                nameText.text = string.IsNullOrWhiteSpace(buildPiece.displayName)
+                    ? buildPiece.name
+                    : buildPiece.displayName;
+            }
+
+            if (costText != null)
+            {
+                costText.text = $"Wood: {buildPiece.woodCost}";
+
+                if (buildPiece.stoneCost > 0)
+                {
+                    costText.text += $" | Stone: {buildPiece.stoneCost}";
+                }
+            }
+        }
+
+        if (iconImage != null && icon != null)
+        {
+            iconImage.sprite = icon;
+        }
     }
 }

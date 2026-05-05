@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
@@ -7,19 +6,14 @@ public class BuildingManager : MonoBehaviour
     public Camera playerCamera;
     public PlayerResources playerResources;
 
-    [Header("Build Menu")]
-    public GameObject buildMenuPanel;
-    public Transform buildMenuContent;
-    public GameObject buildMenuButtonPrefab;
-    public List<GameObject> buildablePrefabs = new List<GameObject>();
+    [Header("Build Prefabs")]
+    public BuildingPiece[] buildPieces;
 
     [Header("Placement Settings")]
     public float buildDistance = 8f;
-    public float snapRadius = 1.5f;
     public LayerMask placementMask;
-    public LayerMask snapPointMask;
-    public KeyCode openBuildMenuKey = KeyCode.B;
-    public KeyCode placeKey = KeyCode.Mouse0;
+    public LayerMask snapMask;
+    public float snapSearchRadius = 1.0f;
     public KeyCode rotateKey = KeyCode.R;
     public KeyCode cancelKey = KeyCode.Escape;
 
@@ -27,255 +21,237 @@ public class BuildingManager : MonoBehaviour
     public Material validPreviewMaterial;
     public Material invalidPreviewMaterial;
 
-    private GameObject selectedPrefab;
+    private BuildingPiece selectedPiece;
     private GameObject previewObject;
-    private bool buildMenuOpen = false;
-    private bool canPlace = false;
-    private float currentRotation = 0f;
+    private BuildingPiece previewPiece;
 
-    void Start()
+    private bool canPlace;
+    private float currentYRotation;
+
+    private Transform currentTargetSnap;
+
+    private void Update()
     {
-        GenerateBuildMenu();
+        HandleNumberSelection();
 
-        if (buildMenuPanel != null)
+        if (selectedPiece == null)
+            return;
+
+        if (Input.GetKeyDown(rotateKey))
         {
-            buildMenuPanel.SetActive(false);
+            currentYRotation += 90f;
         }
-    }
 
-    void Update()
-    {
-        HandleBuildMenuInput();
-
-        if (selectedPrefab != null)
+        if (Input.GetKeyDown(cancelKey))
         {
-            UpdatePreview();
-
-            if (Input.GetKeyDown(rotateKey))
-            {
-                RotatePreview();
-            }
-
-            if (Input.GetKeyDown(placeKey) && canPlace)
-            {
-                PlaceSelectedObject();
-            }
-
-            if (Input.GetKeyDown(cancelKey))
-            {
-                CancelBuilding();
-            }
-        }
-    }
-
-    void HandleBuildMenuInput()
-    {
-        if (Input.GetKeyDown(openBuildMenuKey))
-        {
-            buildMenuOpen = !buildMenuOpen;
-
-            if (buildMenuPanel != null)
-            {
-                buildMenuPanel.SetActive(buildMenuOpen);
-            }
-
-            Cursor.visible = buildMenuOpen;
-            Cursor.lockState = buildMenuOpen ? CursorLockMode.None : CursorLockMode.Locked;
-        }
-    }
-
-    void GenerateBuildMenu()
-    {
-        if (buildMenuContent == null || buildMenuButtonPrefab == null)
-        {
-            Debug.LogWarning("Build menu references are missing.");
+            CancelBuild();
             return;
         }
 
-        foreach (Transform child in buildMenuContent)
+        UpdatePreview();
+
+        if (Input.GetMouseButtonDown(0) && canPlace)
         {
-            Destroy(child.gameObject);
+            PlaceSelectedPiece();
         }
+    }
 
-        foreach (GameObject prefab in buildablePrefabs)
+    private void HandleNumberSelection()
+    {
+        for (int i = 0; i < buildPieces.Length; i++)
         {
-            GameObject buttonObject = Instantiate(buildMenuButtonPrefab, buildMenuContent);
-
-            BuildMenuItem menuItem = buttonObject.GetComponent<BuildMenuItem>();
-
-            if (menuItem != null)
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
-                menuItem.Setup(prefab, this);
+                SelectBuildable(i);
             }
         }
     }
 
-    public void SelectBuildable(GameObject prefab)
+    public void SelectBuildable(int index)
     {
-        selectedPrefab = prefab;
+        if (index < 0 || index >= buildPieces.Length)
+            return;
 
-        if (buildMenuPanel != null)
-        {
-            buildMenuPanel.SetActive(false);
-        }
+        SelectBuildable(buildPieces[index]);
+    }
 
-        buildMenuOpen = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+    public void SelectBuildable(BuildingPiece piece)
+    {
+        if (piece == null)
+            return;
 
+        selectedPiece = piece;
+        currentYRotation = 0f;
         CreatePreview();
     }
 
-    void CreatePreview()
+    private void CreatePreview()
     {
         if (previewObject != null)
         {
             Destroy(previewObject);
         }
 
-        previewObject = Instantiate(selectedPrefab);
-        previewObject.name = selectedPrefab.name + "_Preview";
+        previewObject = Instantiate(selectedPiece.gameObject);
+        previewObject.name = selectedPiece.displayName + "_Preview";
 
-        DisablePreviewColliders(previewObject);
+        previewPiece = previewObject.GetComponent<BuildingPiece>();
+
+        if (previewPiece != null)
+        {
+            previewPiece.RefreshSnapPoints();
+        }
+
+        DisablePreviewCollisions(previewObject);
         SetPreviewMaterial(invalidPreviewMaterial);
     }
 
-    void UpdatePreview()
+    private void UpdatePreview()
     {
-        if (previewObject == null)
-        {
+        if (previewObject == null || selectedPiece == null)
             return;
-        }
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, buildDistance, placementMask))
+        if (!Physics.Raycast(ray, out RaycastHit hit, buildDistance, placementMask))
         {
-            Vector3 targetPosition = hit.point;
-            Quaternion targetRotation = Quaternion.Euler(0f, currentRotation, 0f);
+            canPlace = false;
+            currentTargetSnap = null;
+            SetPreviewMaterial(invalidPreviewMaterial);
+            return;
+        }
 
-            SnapPoint nearestSnapPoint = FindNearestSnapPoint(hit.point);
+        Quaternion targetRotation = Quaternion.Euler(0f, currentYRotation, 0f);
 
-            BuildableObject buildable = selectedPrefab.GetComponent<BuildableObject>();
+        currentTargetSnap = FindBestWorldSnap(hit.point);
 
-            if (nearestSnapPoint != null)
-            {
-                targetPosition = nearestSnapPoint.transform.position;
-                targetRotation = nearestSnapPoint.transform.rotation * Quaternion.Euler(0f, currentRotation, 0f);
-                canPlace = true;
-            }
-            else
-            {
-                if (buildable != null && buildable.requiresSnap)
-                {
-                    canPlace = false;
-                }
-                else
-                {
-                    canPlace = true;
-                }
-            }
-
-            previewObject.transform.position = targetPosition;
-            previewObject.transform.rotation = targetRotation;
-
-            bool affordable = CanAffordSelected();
-
-            canPlace = canPlace && affordable;
-
-            SetPreviewMaterial(canPlace ? validPreviewMaterial : invalidPreviewMaterial);
+        if (currentTargetSnap != null)
+        {
+            SnapPreviewToPoint(currentTargetSnap, targetRotation);
         }
         else
         {
-            canPlace = false;
-            SetPreviewMaterial(invalidPreviewMaterial);
+            previewObject.transform.position = hit.point;
+            previewObject.transform.rotation = targetRotation;
         }
+
+        canPlace = CheckCanPlace();
+        SetPreviewMaterial(canPlace ? validPreviewMaterial : invalidPreviewMaterial);
     }
 
-    SnapPoint FindNearestSnapPoint(Vector3 targetPosition)
+    private Transform FindBestWorldSnap(Vector3 searchPosition)
     {
-        Collider[] hits = Physics.OverlapSphere(targetPosition, snapRadius, snapPointMask);
+        Collider[] hits = Physics.OverlapSphere(searchPosition, snapSearchRadius, snapMask);
 
-        SnapPoint closestSnapPoint = null;
-        float closestDistance = Mathf.Infinity;
+        Transform bestSnap = null;
+        float bestDistance = Mathf.Infinity;
 
-        foreach (Collider hit in hits)
+        foreach (Collider col in hits)
         {
-            SnapPoint snapPoint = hit.GetComponent<SnapPoint>();
+            Transform snapTransform = col.transform;
 
-            if (snapPoint == null)
+            float distance = Vector3.Distance(searchPosition, snapTransform.position);
+
+            if (distance < bestDistance)
             {
-                snapPoint = hit.GetComponentInParent<SnapPoint>();
+                bestDistance = distance;
+                bestSnap = snapTransform;
             }
+        }
 
-            if (snapPoint == null)
-            {
+        return bestSnap;
+    }
+
+    private void SnapPreviewToPoint(Transform targetSnap, Quaternion desiredRotation)
+    {
+        previewObject.transform.rotation = desiredRotation;
+
+        Transform previewSnap = FindClosestPreviewSnapToTarget(targetSnap.position);
+
+        if (previewSnap == null)
+        {
+            previewObject.transform.position = targetSnap.position;
+            return;
+        }
+
+        Vector3 offset = previewSnap.position - previewObject.transform.position;
+        previewObject.transform.position = targetSnap.position - offset;
+    }
+
+    private Transform FindClosestPreviewSnapToTarget(Vector3 targetPosition)
+    {
+        if (previewPiece == null || previewPiece.snapPoints == null || previewPiece.snapPoints.Length == 0)
+            return null;
+
+        Transform bestSnap = null;
+        float bestDistance = Mathf.Infinity;
+
+        foreach (Transform snap in previewPiece.snapPoints)
+        {
+            if (snap == null)
                 continue;
-            }
 
-            float distance = Vector3.Distance(targetPosition, snapPoint.transform.position);
+            float distance = Vector3.Distance(snap.position, targetPosition);
 
-            if (distance < closestDistance)
+            if (distance < bestDistance)
             {
-                closestDistance = distance;
-                closestSnapPoint = snapPoint;
+                bestDistance = distance;
+                bestSnap = snap;
             }
         }
 
-        return closestSnapPoint;
+        return bestSnap;
     }
 
-    bool CanAffordSelected()
+    private bool CheckCanPlace()
     {
-        if (selectedPrefab == null || playerResources == null)
-        {
+        if (selectedPiece == null)
             return false;
-        }
 
-        BuildableObject buildable = selectedPrefab.GetComponent<BuildableObject>();
-
-        if (buildable == null)
+        if (playerResources != null)
         {
-            return true;
+            if (playerResources.wood < selectedPiece.woodCost)
+                return false;
+
+            if (playerResources.stone < selectedPiece.stoneCost)
+                return false;
         }
 
-        return playerResources.CanAfford(buildable.woodCost, buildable.stoneCost);
+        return true;
     }
 
-    void PlaceSelectedObject()
+    private void PlaceSelectedPiece()
     {
-        BuildableObject buildable = selectedPrefab.GetComponent<BuildableObject>();
+        if (selectedPiece == null || previewObject == null)
+            return;
 
-        if (buildable != null)
-        {
-            bool paid = playerResources.SpendResources(buildable.woodCost, buildable.stoneCost);
+        if (!CheckCanPlace())
+            return;
 
-            if (!paid)
-            {
-                return;
-            }
-        }
-
-        Instantiate(
-            selectedPrefab,
+        GameObject placedObject = Instantiate(
+            selectedPiece.gameObject,
             previewObject.transform.position,
             previewObject.transform.rotation
         );
-    }
 
-    void RotatePreview()
-    {
-        currentRotation += 90f;
+        BuildingPiece placedPiece = placedObject.GetComponent<BuildingPiece>();
 
-        if (currentRotation >= 360f)
+        if (placedPiece != null)
         {
-            currentRotation = 0f;
+            placedPiece.RefreshSnapPoints();
+        }
+
+        if (playerResources != null)
+        {
+            playerResources.wood -= selectedPiece.woodCost;
+            playerResources.stone -= selectedPiece.stoneCost;
         }
     }
 
-    void CancelBuilding()
+    private void CancelBuild()
     {
-        selectedPrefab = null;
+        selectedPiece = null;
+        currentTargetSnap = null;
 
         if (previewObject != null)
         {
@@ -283,7 +259,7 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    void DisablePreviewColliders(GameObject obj)
+    private void DisablePreviewCollisions(GameObject obj)
     {
         Collider[] colliders = obj.GetComponentsInChildren<Collider>();
 
@@ -293,18 +269,16 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    void SetPreviewMaterial(Material material)
+    private void SetPreviewMaterial(Material material)
     {
         if (previewObject == null || material == null)
-        {
             return;
-        }
 
         Renderer[] renderers = previewObject.GetComponentsInChildren<Renderer>();
 
-        foreach (Renderer rend in renderers)
+        foreach (Renderer renderer in renderers)
         {
-            rend.material = material;
+            renderer.material = material;
         }
     }
 }

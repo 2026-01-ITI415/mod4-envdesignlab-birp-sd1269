@@ -4272,6 +4272,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bddc1c2bd8f610b4a9602b0663b4823e, type: 3}
+--- !u!1 &1029974098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029974100}
+  - component: {fileID: 1029974099}
+  m_Layer: 0
+  m_Name: BuildingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1029974099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029974098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e75d2fd74857542a9426f48f053264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
+  playerCamera: {fileID: 680192690}
+  playerResources: {fileID: 657634381}
+  buildPieces:
+  - {fileID: 1020100355565000888, guid: c3b480ec2917f1545aefc0bc45ec1f4a, type: 3}
+  - {fileID: 171960011777997980, guid: c1eed02ac19a6a34a8c9af27bce50f58, type: 3}
+  - {fileID: 8513758342165632101, guid: c39a769f53b57c149830fb15ee762ed9, type: 3}
+  - {fileID: 251994074379100934, guid: 42c4bef4a3f2ee446908c3de113f7a10, type: 3}
+  - {fileID: 7278948265861371910, guid: 773b047d9e7507c45baff4c60c044e0f, type: 3}
+  - {fileID: 91462765733145250, guid: b8aee40fd638cd64db20be4c878bb8d0, type: 3}
+  - {fileID: 1172390573541964515, guid: 11517a81d429153459209cbc6cbfe10b, type: 3}
+  - {fileID: 8528025250093249520, guid: 4399d1c9037a0e54d9fc23509bdb1ef5, type: 3}
+  buildDistance: 8
+  placementMask:
+    serializedVersion: 2
+    m_Bits: 64
+  snapMask:
+    serializedVersion: 2
+    m_Bits: 128
+  snapSearchRadius: 1
+  rotateKey: 114
+  cancelKey: 27
+  validPreviewMaterial: {fileID: 2100000, guid: 04076a8ba5c805c409251912da22b641, type: 2}
+  invalidPreviewMaterial: {fileID: 2100000, guid: a490127cee2d3f24b8ed528f74316101, type: 2}
+--- !u!4 &1029974100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029974098}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.125, y: 2.24538, z: -2.69058}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1050605909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6100,3 +6167,4 @@ SceneRoots:
   - {fileID: 278618484}
   - {fileID: 1173129004}
   - {fileID: 538724033}
+  - {fileID: 1029974100}

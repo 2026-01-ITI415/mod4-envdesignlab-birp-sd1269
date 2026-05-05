@@ -19,4 +19,32 @@ public class BuildingPiece : MonoBehaviour
 
     [Header("Snapping")]
     public Transform[] snapPoints;
+
+    private void Reset()
+    {
+        RefreshSnapPoints();
+    }
+
+    private void OnValidate()
+    {
+        RefreshSnapPoints();
+    }
+
+    public void RefreshSnapPoints()
+    {
+        Transform snapParent = transform.Find("SnapPoints");
+
+        if (snapParent == null)
+        {
+            snapPoints = new Transform[0];
+            return;
+        }
+
+        snapPoints = new Transform[snapParent.childCount];
+
+        for (int i = 0; i < snapParent.childCount; i++)
+        {
+            snapPoints[i] = snapParent.GetChild(i);
+        }
+    }
 }
