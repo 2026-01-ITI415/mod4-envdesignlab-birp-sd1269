@@ -5,6 +5,7 @@ public class BuildingManager : MonoBehaviour
     [Header("References")]
     public Camera playerCamera;
     public PlayerResources playerResources;
+    public BuildMenu buildMenu;
 
     [Header("Build Prefabs")]
     public BuildingPiece[] buildPieces;
@@ -58,6 +59,9 @@ public class BuildingManager : MonoBehaviour
 
     private void Update()
     {
+        if (buildMenu != null && buildMenu.IsMenuOpen)
+            return;
+
         HandleRemoveModeToggle();
 
         if (isRemoveMode)

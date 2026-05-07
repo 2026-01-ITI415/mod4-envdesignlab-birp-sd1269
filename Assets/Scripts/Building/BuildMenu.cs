@@ -36,6 +36,7 @@ public class BuildMenu : MonoBehaviour
     public int closeMouseButton = 1; // 1 = Right Click
 
     private bool isOpen;
+    public bool IsMenuOpen => isOpen;
 
     // Keeps generated preview sprites alive.
     private readonly List<Sprite> generatedSprites = new List<Sprite>();

@@ -4949,6 +4949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
   playerCamera: {fileID: 680192690}
   playerResources: {fileID: 657634381}
+  buildMenu: {fileID: 1029974101}
   buildPieces:
   - {fileID: 1020100355565000888, guid: c3b480ec2917f1545aefc0bc45ec1f4a, type: 3}
   - {fileID: 171960011777997980, guid: c1eed02ac19a6a34a8c9af27bce50f58, type: 3}
