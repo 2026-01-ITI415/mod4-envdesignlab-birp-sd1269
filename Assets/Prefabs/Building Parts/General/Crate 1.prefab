@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9202400534218193797}
   - component: {fileID: 305076412036592649}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Snap_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 613394193282501262}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SnapPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,8 +116,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 613394193282501262}
   - {fileID: 5539669989085647632}
+  - {fileID: 613394193282501262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8136541630348681357

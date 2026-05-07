@@ -146,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4352602699961554754}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: SnapPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2658930650452030236}
   - component: {fileID: 2173828174239974596}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Snap_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6142918216481086913}
   - component: {fileID: 646526377426982319}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Snap_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5731473108560209375}
   - component: {fileID: 6159101693635675993}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Snap_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3588807638436050868}
   - component: {fileID: 4866296522181805326}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Snap_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
