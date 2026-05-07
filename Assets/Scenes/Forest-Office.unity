@@ -4765,8 +4765,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996663507}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0382005, y: -0.9465475, z: -0.12160011, w: -0.29631397}
-  m_LocalPosition: {x: -266.21765, y: -6.539444, z: -234.01096}
+  m_LocalRotation: {x: 0.003198658, y: 0.7988913, z: -0.0047158985, w: 0.6014485}
+  m_LocalPosition: {x: -465.21365, y: -19.982546, z: -201.00299}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5018,63 +5018,63 @@ MonoBehaviour:
   fpsControllerScript: {fileID: 657634391}
   buildItems:
   - buildPiece: {fileID: 4206537065602064562, guid: d8b44051aaf6a1b428975c28d9622cf0, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 64f374d2646a3074eb1d822d1fd1d8b6, type: 3}
   - buildPiece: {fileID: 649279371019167080, guid: 481d3ecc89dd2224c99c56c51d5e6e04, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 77b5048c75d072e4aace9e944cfbcced, type: 3}
   - buildPiece: {fileID: 436514790672703697, guid: 1e4780d641fb88949a69390ba86de144, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 2ce4813d5d159d742ab9bb66ef39090f, type: 3}
   - buildPiece: {fileID: 434731974665903487, guid: a8bd1cd5ec456a346aaa4dbbb93db789, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: ac05ec2c2d4a1d64da25257f60e61256, type: 3}
   - buildPiece: {fileID: 6808089778078520552, guid: b3ab8d13b024c5d41a9727b21eeebdad, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 23d7a38b7e22fc7498e505439e13b4bc, type: 3}
   - buildPiece: {fileID: 1002277272944137725, guid: b7e4a416053fd374ea61b4cdf3a020a2, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: ac60510cdd6eb5b4984a50d12bbe1a18, type: 3}
   - buildPiece: {fileID: 964388796384411028, guid: 58aeee7ed1d92f845944e3a4ca9c3d4d, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: fcb582c93a9144844a574274831c8bd5, type: 3}
   - buildPiece: {fileID: 133342808786417337, guid: 547c0e3e064cd7744867208fdb04811f, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 74fb46a4e39c259418c2a45d7e0f7d20, type: 3}
   - buildPiece: {fileID: 6808089778078520552, guid: b3ab8d13b024c5d41a9727b21eeebdad, type: 3}
     overrideIcon: {fileID: 0}
   - buildPiece: {fileID: 3132723711073966602, guid: dab7771ec7419e14e8412ee3bc01c52a, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: ba597b0e61e5888489136c3c9dfcbbbe, type: 3}
   - buildPiece: {fileID: 223669679216102045, guid: 203d15d2f74783f428494f72f2a25470, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: e95ac7afc2ad6874dafa6049feda4f6b, type: 3}
   - buildPiece: {fileID: 1745879590806284136, guid: 3411270fadda33948964df9cccafd098, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 9192e2119aba6fb4eb55ac2b26696c8e, type: 3}
   - buildPiece: {fileID: 7346246135090584408, guid: 9e10c0dc666aca440ad11f42922ea1f6, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: f4531997da6e02940a3f62b478d6a832, type: 3}
   - buildPiece: {fileID: 6126553956320443444, guid: 578caa364de4f0d4fb5af45dde7d6e73, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 3378d4d62bdaade4a8a300706c1a3adb, type: 3}
   - buildPiece: {fileID: 5948886977673233626, guid: b570be78b3f93694c843a7dff1ba311c, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 52eb8836ebb2ce448af3221f0fee0fc6, type: 3}
   - buildPiece: {fileID: 6431112365698002932, guid: d2823be72a4bdfa4bbd4b4eeecd6ffff, type: 3}
     overrideIcon: {fileID: 0}
   - buildPiece: {fileID: 549941106935028505, guid: dc776536d27987c4bb80a5d49f541092, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 8a84223819d22ff45aea64cac8b3c732, type: 3}
   - buildPiece: {fileID: 2094651145546631805, guid: 0ef85254c96f4434aac390a48243ba58, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: afe9f38f1e4ab0042a9b0d8eae401ede, type: 3}
   - buildPiece: {fileID: 313880426310318, guid: 2c06cde0e5da6434bb1b4a7ecc7e92a7, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 4577ac5156bf16b48b56909b1f6475a9, type: 3}
   - buildPiece: {fileID: 7109396286522350994, guid: ea6c4fcaf2837d84484e03c76e7c1369, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: ab68fe157ee32c0459692847e4ad8085, type: 3}
   - buildPiece: {fileID: 2039994082780766652, guid: 1b71fa6a4c6a7b748b6f91c440f65659, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: b7eb888fac08eef41a50014ff08bd3f3, type: 3}
   - buildPiece: {fileID: 4646910692193532997, guid: d94bf297bf71bcc4183cc24e12b20ebb, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: c5fcbcf31bf13cb478e79e06ee9feeca, type: 3}
   - buildPiece: {fileID: 3569523837766398967, guid: fff7e545048660d4e90e38a367535618, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 4c7af6a21b7dc4349829aea3e06315b6, type: 3}
   - buildPiece: {fileID: 1329221296293309245, guid: f1ece8d5f1b37da489aa3ce1e8363623, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 412deea0328265340af0a4101a7467e6, type: 3}
   - buildPiece: {fileID: 4936865445149629600, guid: 9ba9dc313f1dc0c42a53e281a03db932, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: e6d53cdf953bac444ba4c9e091015599, type: 3}
   - buildPiece: {fileID: 8528843666799961436, guid: 736993208d286fe4cbcc0a95199480e0, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: e4844e06f7d78504793184e44eb7967d, type: 3}
   - buildPiece: {fileID: 6284667568674445799, guid: 6293a03978bf5044b97bc2361c14be67, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 0db4830124871694d8da5ed96ed7740f, type: 3}
   - buildPiece: {fileID: 6144568051425079747, guid: bde1058a5680e3246bdcb879e314da12, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: 00779cc6e9258be4cbdfc91f38768a6a, type: 3}
   - buildPiece: {fileID: 4272987006129922521, guid: 19b3796d58fa03a4bb46a24a1c447eeb, type: 3}
-    overrideIcon: {fileID: 0}
+    overrideIcon: {fileID: 21300000, guid: b99419c3b697d0b4aadfd57fdb3e6bcf, type: 3}
   toggleMenuKey: 98
   closeMouseButton: 1
 --- !u!1001 &1050605909
