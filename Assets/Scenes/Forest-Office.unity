@@ -4309,7 +4309,6 @@ MonoBehaviour:
   terrain: {fileID: 1264186549}
   gatherDistance: 5
   treeDetectRadius: 2
-  woodPerTree: 3
   gatherKey: 101
   stumpPrefab: {fileID: 919132149155446097, guid: b57de7db9f3e2f14f8b5bbf4542c4c62, type: 3}
   stumpScale: 3
@@ -4746,7 +4745,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 495
+    m_Bits: 4294967279
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4766,8 +4765,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996663507}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.096145235, y: -0.01636132, z: -0.0015000361, w: -0.99523175}
-  m_LocalPosition: {x: 6.2902527, y: -329.57474, z: -460.7704}
+  m_LocalRotation: {x: 0.3005149, y: 0.5327245, z: 0.20989348, w: -0.7627845}
+  m_LocalPosition: {x: -251.51163, y: -13.406551, z: -242.67912}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5033,6 +5032,8 @@ MonoBehaviour:
   - buildPiece: {fileID: 8513758342165632101, guid: c39a769f53b57c149830fb15ee762ed9, type: 3}
     overrideIcon: {fileID: 0}
   - buildPiece: {fileID: 1172390573541964515, guid: 11517a81d429153459209cbc6cbfe10b, type: 3}
+    overrideIcon: {fileID: 0}
+  - buildPiece: {fileID: 2404214582677462747, guid: 7eb9f17779bb5394391d616a3565e486, type: 3}
     overrideIcon: {fileID: 0}
   toggleMenuKey: 98
   closeMouseButton: 1

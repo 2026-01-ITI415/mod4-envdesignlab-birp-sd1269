@@ -11,7 +11,6 @@ public class PlayerGathering : MonoBehaviour
     [Header("Gather Settings")]
     public float gatherDistance = 5f;
     public float treeDetectRadius = 2f;
-    public int woodPerTree = 3;
     public KeyCode gatherKey = KeyCode.E;
 
     [Header("Stump Settings")]
@@ -44,7 +43,7 @@ public class PlayerGathering : MonoBehaviour
 
             if (removedTree)
             {
-                playerResources.AddWood(woodPerTree);
+                playerResources.AddWood(Random.Range(1, 10));
             }
             else
             {
