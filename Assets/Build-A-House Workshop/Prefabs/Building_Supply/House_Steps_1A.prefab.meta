@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 95110fbefa1841141aa3fab20a1f37b9
+timeCreated: 1463688875
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63203
+  packageName: Build-A-House Workshop
+  packageVersion: 1.0
+  assetPath: Assets/Build-A-House Workshop/Prefabs/Building_Supply/House_Steps_1A.prefab
+  uploadId: 118599

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: baa0a7fc01653b84f87fad6c850c04fc
+timeCreated: 1463689030
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63203
+  packageName: Build-A-House Workshop
+  packageVersion: 1.0
+  assetPath: Assets/Build-A-House Workshop/Demo_Item_Display/Display_Scene_1.unity
+  uploadId: 118599

@@ -5017,23 +5017,15 @@ MonoBehaviour:
   buildingManager: {fileID: 1029974099}
   fpsControllerScript: {fileID: 657634391}
   buildItems:
-  - buildPiece: {fileID: 1020100355565000888, guid: c3b480ec2917f1545aefc0bc45ec1f4a, type: 3}
+  - buildPiece: {fileID: 4206537065602064562, guid: d8b44051aaf6a1b428975c28d9622cf0, type: 3}
     overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 171960011777997980, guid: c1eed02ac19a6a34a8c9af27bce50f58, type: 3}
+  - buildPiece: {fileID: 649279371019167080, guid: 481d3ecc89dd2224c99c56c51d5e6e04, type: 3}
     overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 251994074379100934, guid: 42c4bef4a3f2ee446908c3de113f7a10, type: 3}
+  - buildPiece: {fileID: 436514790672703697, guid: 1e4780d641fb88949a69390ba86de144, type: 3}
     overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 91462765733145250, guid: b8aee40fd638cd64db20be4c878bb8d0, type: 3}
+  - buildPiece: {fileID: 434731974665903487, guid: a8bd1cd5ec456a346aaa4dbbb93db789, type: 3}
     overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 7278948265861371910, guid: 773b047d9e7507c45baff4c60c044e0f, type: 3}
-    overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 8528025250093249520, guid: 4399d1c9037a0e54d9fc23509bdb1ef5, type: 3}
-    overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 8513758342165632101, guid: c39a769f53b57c149830fb15ee762ed9, type: 3}
-    overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 1172390573541964515, guid: 11517a81d429153459209cbc6cbfe10b, type: 3}
-    overrideIcon: {fileID: 0}
-  - buildPiece: {fileID: 2404214582677462747, guid: 7eb9f17779bb5394391d616a3565e486, type: 3}
+  - buildPiece: {fileID: 6808089778078520552, guid: b3ab8d13b024c5d41a9727b21eeebdad, type: 3}
     overrideIcon: {fileID: 0}
   toggleMenuKey: 98
   closeMouseButton: 1

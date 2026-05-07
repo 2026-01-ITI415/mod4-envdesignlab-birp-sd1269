@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 508828747d7d19340bb0ea7ef09e973d
+timeCreated: 1463688872
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63203
+  packageName: Build-A-House Workshop
+  packageVersion: 1.0
+  assetPath: Assets/Build-A-House Workshop/Prefabs/Housing_Examples/House_Model_1B.prefab
+  uploadId: 118599

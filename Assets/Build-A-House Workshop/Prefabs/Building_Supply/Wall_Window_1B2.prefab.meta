@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 349f44b2dee708c4b8c23f2f17f05296
+timeCreated: 1463688960
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63203
+  packageName: Build-A-House Workshop
+  packageVersion: 1.0
+  assetPath: Assets/Build-A-House Workshop/Prefabs/Building_Supply/Wall_Window_1B2.prefab
+  uploadId: 118599

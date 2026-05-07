@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ebb0be1804f6d4e4cb7f7af588efacfc
+timeCreated: 1463688888
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63203
+  packageName: Build-A-House Workshop
+  packageVersion: 1.0
+  assetPath: Assets/Build-A-House Workshop/Prefabs/Building_Supply/Stone_Wall_1A2.prefab
+  uploadId: 118599

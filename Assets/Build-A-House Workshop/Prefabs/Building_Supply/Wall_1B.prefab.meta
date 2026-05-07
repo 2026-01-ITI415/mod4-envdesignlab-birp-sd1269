@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: da1e1f142f997eb4cb2c196ed63fae0f
+timeCreated: 1463688894
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63203
+  packageName: Build-A-House Workshop
+  packageVersion: 1.0
+  assetPath: Assets/Build-A-House Workshop/Prefabs/Building_Supply/Wall_1B.prefab
+  uploadId: 118599

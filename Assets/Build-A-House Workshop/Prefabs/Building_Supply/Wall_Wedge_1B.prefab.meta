@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 39c54cddce168c742aec450495c64dde
+timeCreated: 1463688925
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 63203
+  packageName: Build-A-House Workshop
+  packageVersion: 1.0
+  assetPath: Assets/Build-A-House Workshop/Prefabs/Building_Supply/Wall_Wedge_1B.prefab
+  uploadId: 118599
