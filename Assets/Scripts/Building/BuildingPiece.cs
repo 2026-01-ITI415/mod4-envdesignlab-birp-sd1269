@@ -12,6 +12,7 @@ public class BuildingPiece : MonoBehaviour
     [Header("Info")]
     public string displayName;
     public BuildingPieceType pieceType;
+    public Sprite icon;
 
     [Header("Cost")]
     public int woodCost = 1;
